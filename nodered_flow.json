@@ -1,0 +1,183 @@
+[
+    {
+        "id": "9925173609099081",
+        "type": "tab",
+        "label": "OBS WS TLS JUMPER",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e0ac1afd4793f936",
+        "type": "http in",
+        "z": "9925173609099081",
+        "name": "",
+        "url": "/obs-jumper",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "0ab82f7326f8752b"
+            ]
+        ]
+    },
+    {
+        "id": "0ab82f7326f8752b",
+        "type": "template",
+        "z": "9925173609099081",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE HTML>\n<html>\n    <head>\n    <title>OBS WS TLS JUMPER</title>\n    <style>\n\t\tbody {\n\t\t}\n\t\t\n\t\t\n\t</style>\n    </head>\n    <body onload=\"wsConnect();\" onunload=\"ws.disconnect();\">\n\t\t<h1>OBS WS TLS JUMPER</h1><br>\n\t\t<p>SERVER : </p><p id=\"status_server\"; style=\"color:#ff0000\";>OFF</p>\n\t\t<p>OBS : </p><p id=\"status_obs\"; style=\"color:#ff0000\";>OFF</p>\n\t\t<script>\n\t\t\tvar ws;\n\t\t\tvar ws2;\n\t\t\tvar loc = window.location;\n\t\t\twsUri = \"wss://\"+ loc.host +\"/ws/obs-jumper\";\n            wsUri2 = \"ws://localhost:4444\";\n\t\t\tfunction wsConnect() {\n\t\t\t\tconsole.log(\"trying connection to server and OBS\",wsUri);\n\t\t\t\tws = new WebSocket(wsUri);\n\t\t\t\tws2 = new WebSocket(wsUri2);\n\t\t\t\t\n\t\t\t\tws.onmessage = function(msg) {\n\t\t\t\t\tconsole.log(\"message from server received\");\n\t\t\t\t\tws2.send(msg.data)\n\t\t\t\t}\n\t\t\t\tws.onopen = function() {\n\t\t\t\t\t//ws.send(\"Open for data\");\n\t\t\t\t\tconsole.log(\"connected to server\");\n\t\t\t\t\tdocument.getElementById(\"status_server\").innerHTML = \"ON\";\n\t\t\t\t\tdocument.getElementById(\"status_server\").style.color = \"#4fd800\";\n\t\t\t\t}\n\t\t\t\tws.onclose = function() {\n\t\t\t\t\t// in case of lost connection tries to reconnect every 3 secs\n\t\t\t\t\tsetTimeout(wsConnect,3000);\n\t\t\t\t}\n\t\t\t\t\n\t\t\t\tws2.onmessage = function(msg) {\n\t\t\t\t\tconsole.log(\"message from server received\");\n\t\t\t\t\tws.send(msg.data)\n\t\t\t\t}\n\t\t\t\tws2.onopen = function() {\n\t\t\t\t\t//ws.send(\"Open for data\");\n\t\t\t\t\tconsole.log(\"connected to OBS\");\n\t\t\t\t\tdocument.getElementById(\"status_obs\").innerHTML = \"ON\";\n\t\t\t\t\tdocument.getElementById(\"status_obs\").style.color = \"#4fd800\";\n\t\t\t\t}\n\t\t\t\tws2.onclose = function() {\n\t\t\t\t\t// in case of lost connection tries to reconnect every 3 secs\n\t\t\t\t\tsetTimeout(wsConnect,3000);\n\t\t\t\t}\n\t\t\t}\n\t    </script>\n    </body>\n</html>",
+        "output": "str",
+        "x": 300,
+        "y": 60,
+        "wires": [
+            [
+                "48423c40fd94f643"
+            ]
+        ]
+    },
+    {
+        "id": "48423c40fd94f643",
+        "type": "http response",
+        "z": "9925173609099081",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 430,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "058fc07c89e034d7",
+        "type": "websocket out",
+        "z": "9925173609099081",
+        "name": "",
+        "server": "7022d170db8ccb79",
+        "client": "",
+        "x": 790,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "30acde82953dbd08",
+        "type": "json",
+        "z": "9925173609099081",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 630,
+        "y": 140,
+        "wires": [
+            [
+                "058fc07c89e034d7"
+            ]
+        ]
+    },
+    {
+        "id": "90837315b07ce097",
+        "type": "websocket in",
+        "z": "9925173609099081",
+        "name": "",
+        "server": "7022d170db8ccb79",
+        "client": "",
+        "x": 110,
+        "y": 100,
+        "wires": [
+            [
+                "3d42ef8c11b8ce36"
+            ]
+        ]
+    },
+    {
+        "id": "5b75f60d0510eea4",
+        "type": "debug",
+        "z": "9925173609099081",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "3d42ef8c11b8ce36",
+        "type": "json",
+        "z": "9925173609099081",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 290,
+        "y": 100,
+        "wires": [
+            [
+                "5b75f60d0510eea4"
+            ]
+        ]
+    },
+    {
+        "id": "5aa1c62c.e9498",
+        "type": "function",
+        "z": "9925173609099081",
+        "name": "Set scene",
+        "func": "msg.payload = {\"message-id\" : \"np\", \"request-type\" : \"SetCurrentScene\", \"scene-name\" : \"Breaking_News\"};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 140,
+        "wires": [
+            [
+                "30acde82953dbd08"
+            ]
+        ]
+    },
+    {
+        "id": "f9973282b136dfe8",
+        "type": "inject",
+        "z": "9925173609099081",
+        "name": "TEST",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 70,
+        "y": 140,
+        "wires": [
+            [
+                "5aa1c62c.e9498"
+            ]
+        ]
+    },
+    {
+        "id": "7022d170db8ccb79",
+        "type": "websocket-listener",
+        "path": "/ws/obs-jumper",
+        "wholemsg": "false"
+    }
+]
