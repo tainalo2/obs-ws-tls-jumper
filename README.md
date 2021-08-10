@@ -28,10 +28,10 @@ And we will dock this webpage in OBS, so it will transfer secure communication f
   - OBS Docking
    - In OBS go to "Display" > "Docks" > "personal internet docks..." > create a new dock with URL : https://YOUR_NODERED_SERVER/obs-jumper
    - Let this dock open everytime
-  - Test
-    - in your Node-red server, modify node "Set scene" by replacing "scene name" parameter by one of your scene name
-    - Deploy, open node "TEST" and click "inject now" (only since node red 2.0)
-    - If it's work your OBS have transit to the scene you entered
+# Test
+   - in your Node-red server, modify node "Set scene" by replacing "scene name" parameter by one of your scene name
+   - Deploy, open node "TEST" and click "inject now" (only since node red 2.0)
+   - If it's work your OBS have transit to the scene you entered
 
 # Credit
 Create by tainalo2 : french streamer on twitch every week day from 07H to 09H (Paris hours)
