@@ -22,12 +22,12 @@ And we will dock this webpage in OBS, so it will transfer secure communication f
 
 # Installation
   - Nodered import
-   - Copy the content of the git file : "nodered_flow.json"
-   - In nodered dashboard go to options and "Import"
-   - Paste the file content and click "Import"
+    - Copy the content of the git file : "nodered_flow.json"
+    - In nodered dashboard go to options and "Import"
+    - Paste the file content and click "Import"
   - OBS Docking
-   - In OBS go to "Display" > "Docks" > "personal internet docks..." > create a new dock with URL : https://YOUR_NODERED_SERVER/obs-jumper
-   - Let this dock open everytime
+    - In OBS go to "Display" > "Docks" > "personal internet docks..." > create a new dock with URL : https://YOUR_NODERED_SERVER/obs-jumper
+    - Let this dock open everytime
 # Test
    - in your Node-red server, modify node "Set scene" by replacing "scene name" parameter by one of your scene name
    - Deploy, open node "TEST" and click "inject now" (only since node red 2.0)
